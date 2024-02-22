@@ -1,10 +1,11 @@
----
+FROM ubuntu:18.04
 
-run adduser test1
-run adduser test2
+RUN apt-get update && apt-get install -y systemd
 
-user test2
+RUN systemctl mask dev-hugepages.mount sys-fs-fuse-connections.mount
 
-cmd ["/bin/bash"]
+VOLUME	/mnt
+EXPOSE 80:80
+EXPOSE 8080:8080
 
-...
+ENTRYPOINT ["/sbin/init"]
